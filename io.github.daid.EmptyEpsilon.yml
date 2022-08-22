@@ -1,0 +1,56 @@
+app-id: io.github.daid.EmptyEpsilon
+runtime: org.freedesktop.Platform
+runtime-version: '21.08'
+sdk: org.freedesktop.Sdk
+command: EmptyEpsilon
+rename-desktop-file: EmptyEpsilon.desktop
+# rename-icon: EmptyEpsilon
+finish-args:
+  - "--socket=x11"
+  - "--socket=pulseaudio"
+  - "--share=network"
+  - "--persist=.emptyepsilon"
+modules:
+  - name: glm
+    buildsystem: cmake
+    config-opts:
+      - "-DCMAKE_INSTALL_PREFIX=/app"
+    sources:
+      - type: git
+        # tag: "0.9.9.8"
+        url: https://github.com/g-truc/glm.git
+  - name: EmptyEpsilon
+    buildsystem: cmake-ninja
+    subdir: EmptyEpsilon
+    config-opts:
+      - "-DPROJECT_BINARY_DIR=."
+      - "-DSERIOUS_PROTON_DIR=../SeriousProton/"
+      - "-DWITH_GLM=system"
+      - "-DCMAKE_BUILD_TYPE:STRING=Release"
+      - "-DSKIP_FETCH_CONTENT=true"
+    sources:
+      - type: git
+        url: https://github.com/daid/SeriousProton.git
+        tag: EE-2022.03.16
+        dest: SeriousProton
+      - type: git
+        url: https://github.com/daid/EmptyEpsilon.git
+        tag: EE-2022.03.16
+        dest: EmptyEpsilon
+      - type: git
+        url: https://github.com/zeux/meshoptimizer/
+        tag: "v0.16"
+        dest: EmptyEpsilon/externals/meshoptimizer
+      - type: git
+        url: https://github.com/BinomialLLC/basis_universal
+        tag: "v1_15_update2"
+        dest: EmptyEpsilon/SeriousProton/externals/basis
+      - type: file
+        path: EmptyEpsilon/CMakeLists.txt
+        dest: EmptyEpsilon
+      - type: file
+        path: SeriousProton/CMakeLists.txt
+        dest: SeriousProton
+      - type: file
+        path: basis_universial/CMakeLists.txt
+        dest: SeriousProton/libs/basis_universal
