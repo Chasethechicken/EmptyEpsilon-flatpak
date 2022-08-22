@@ -32,11 +32,13 @@ modules:
     sources:
       - type: git
         url: https://github.com/daid/SeriousProton.git
-        tag: EE-2022.03.16
+        # tag: EE-2022.03.16
+        commit: 8e749c145a79bec270c7e51a4242434e401b2316
         dest: SeriousProton
       - type: git
         url: https://github.com/daid/EmptyEpsilon.git
-        tag: EE-2022.03.16
+        # tag: EE-2022.03.16
+        commit: 61f8666869cd42d800ed6fbcf8a3659814744efd
         dest: EmptyEpsilon
       - type: git
         url: https://github.com/zeux/meshoptimizer/
